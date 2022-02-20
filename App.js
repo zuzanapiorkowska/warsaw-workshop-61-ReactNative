@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { useCallback, useEffect, useState } from 'react';
 import { Button, Image, ImageBackground, StyleSheet, Text, TextInput, View } from 'react-native';
+import {MyText} from "./components/MyText"
 
 export default function App() {
   const [state, setState] = useState(false);
@@ -8,18 +9,24 @@ export default function App() {
     console.log("handle Press");
     if (state === false) {
       setState(true);
-    } else if (state===true){
+    } else if (state === true) {
       setState(false);
     }
-  }, [state]);
+  }, []);
 
-  useEffect(()=> {
+  useEffect(() => {
+    fetch("http://10.141.4.167:3000/api/articles").then(response =>{
+      return response.json();
+  }).then((data)=> {
+    console.log(data);
+  })
+    // .then(response = )
     console.log("jestem wyrenderowany");
   }, [state]);
 
   return (
     <View style={styles.container}>
-      {state === true ? <Text>clicked</Text> : <Text>not clicked</Text>}
+      {state === true ? <MyText text="ok" /> : <Text>not clicked</Text>}
       <ImageBackground source={{ uri: "https://wallpapercave.com/wp/wp2561075.jpg" }} style={{ width: 200, height: 200 }} resizeMode="cover" >
         <Text>Open up App.js to start working on your app!</Text>
         <StatusBar style="auto" backgroundColor="pink" />
@@ -38,4 +45,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  myText: {
+    color: "blue"
+  }
 });
