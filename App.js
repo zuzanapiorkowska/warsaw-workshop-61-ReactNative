@@ -5,6 +5,7 @@ import {MyText} from "./components/MyText"
 
 export default function App() {
   const [state, setState] = useState(false);
+  const [articles, setArticles] = useState([]);
   const handleOnPress = useCallback(() => {
     console.log("handle Press");
     if (state === false) {
